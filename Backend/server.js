@@ -4,7 +4,7 @@ const env = require('dotenv').config();
 const db_username = process.env.DB_USERNAME;
 const db_password = process.env.DB_PASSWORD;
 const mongoose = require("mongoose");
-mongoose.connect(`mongodb+srv://${db_username}:${db_password}@cluster0.upopivo.mongodb.net/?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://${db_username}:${db_password}@cluster0.upopivo.mongodb.net/silentsanctum?retryWrites=true&w=majority`);
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -65,19 +65,29 @@ commentSchema.path('created').index({ expires: 86400 });
 
 const Comment = mongoose.model('Comment', commentSchema);
 
+const checkUser = async (loginId) => {
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
+        if (!data) {
+            return null;
+        }
+        return data;
+    })
+}
+
 app.post("/login", (req, res) => {
     try {
         let key = req.body.auth0_key;
-        let email = req.body.email;
+        let emailAdd = req.body.email;
         let targetUsername = null;
-        User.findOne({ email: email }).exec().then((docs) => {
+        User.findOne({ email: emailAdd }).exec().then((docs) => {
             if (!docs) {
-                //If user is a new user or dead user
+                //If user has a new user id or dead user id
+                console.log("user has a new user id or dead user id");
                 let newUsername = String(short.generate());
                 targetUsername = newUsername;
                 let newUser = new User({
                     username: newUsername,
-                    email: email,
+                    email: emailAdd,
                     created: Date.now(),
                     auth0_key: key,
                     postCount: 0,
@@ -86,19 +96,21 @@ app.post("/login", (req, res) => {
                 })
                 newUser.save().then((msg) => {
                     console.log(`User created ${newUsername}`)
-                }).catch(e => console.log(e));
+                }).catch(e => { console.log(e); res.sendStatus(500); });
             }
             else {
-                //If user is still alive
+                //If user id is still alive
+                console.log("User id is alive");
                 console.log(docs);
                 targetUsername = docs.username;
             }
             LoggedInUser.findOne({ username: targetUsername }).exec().then((docs) => {
                 if (!docs) {
                     //If Logged in user is not present
+                    console.log("Logged in user is not present");
                     let loginId = String(uuidv4());
                     let loggedUser = new LoggedInUser({
-                        email: email,
+                        email: emailAdd,
                         loggedIn: Date.now(),
                         uniqueKey: loginId,
                         username: targetUsername
@@ -110,16 +122,17 @@ app.post("/login", (req, res) => {
                         }
                         res.send(loggedResponse);
                     }).catch((e) => {
-                        console.log(e);
+                        res.sendStatus(500);
                     })
                 }
                 else {
                     //If Logged in user is present
+                    console.log("Logged in user is present");
                     let result = { "username": docs.username, "loginId": docs.uniqueKey }
                     res.send(result);
                 }
             })
-        }).catch(e => console.log(e));
+        }).catch(e => res.sendStatus(500));
     }
     catch (e) {
         console.error(e);
@@ -130,7 +143,46 @@ app.post("/logout", (req, res) => {
     let userToLogout = req.body.loginId;
     LoggedInUser.deleteOne({ uniqueKey: userToLogout }).exec().then((doc) => {
         res.send(doc);
-    }).catch(e => res.send(e));
+    }).catch(e => res.sendStatus(500));
+})
+
+app.post("/new_post", (req, res) => {
+    let loginId = req.body.loginId;
+    let postContent = req.body.postContent;
+
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
+        if (!data) {
+            console.log("User not logged in");
+            res.sendStatus(401);
+        }
+        //If user is logged in
+        let newPost = new Post({
+            topic: req.body.title,
+            created: Date.now(),
+            author: data.username,
+            content: postContent,
+            reactions: [],
+            comments: []
+        });
+        newPost.save().then((docs) => {
+            res.send(docs);
+        }).catch(e => res.sendStatus(500));
+    });
+})
+
+app.post("/posts", (req, res) => {
+    let loginId = req.body.loginId;
+    let topicName = req.body.topic;
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
+        if (!data) {
+            console.log("User not logged in");
+            res.sendStatus(401);
+        }
+        //If user is logged in
+        Post.find({ topic: topicName }).exec().then((docs) => {
+            res.send(docs);
+        }).catch(e => res.sendStatus(500));
+    });
 })
 
 app.listen(port, () => {

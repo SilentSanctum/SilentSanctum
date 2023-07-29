@@ -19,8 +19,9 @@ export class BackendConnectionService {
     return this.http.post<any>(`${this.baseUrl}/new_post`, body);
   }
 
-  getAllPosts() {
-    return this.http.get<any[]>(`${this.baseUrl}/posts`);
+  getAllPosts(data: any) {
+    const body = data;
+    return this.http.post<any>(`${this.baseUrl}/posts`, body);
   }
 
   getAllComments() {

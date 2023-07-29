@@ -37,7 +37,12 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('LoginId', response.loginId);
       });
     });
-    this.backendService.getAllPosts().subscribe((response) => {
+    const getPostsUserId = localStorage.getItem("LoginId");
+    console.log("user id: ", getPostsUserId);
+    const getPostsData = {
+      "loginId": getPostsUserId,
+    }
+    this.backendService.getAllPosts(getPostsData).subscribe((response) => {
       console.log('all posts: ', response);
     });
   }

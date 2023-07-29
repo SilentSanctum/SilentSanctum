@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 
@@ -13,7 +14,8 @@ export class NewPostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public auth: AuthService,
-    public backendService: BackendConnectionService
+    public backendService: BackendConnectionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class NewPostComponent implements OnInit {
       this.backendService.newPost(postData).subscribe((response) => {
         console.log("response from new post: ", response);
       });
+      this.router.navigateByUrl('/posts');
     }
   }
 }

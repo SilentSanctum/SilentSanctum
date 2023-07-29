@@ -4,8 +4,11 @@
       <app-home></app-home>
     </ng-container>
     <ng-template #loggedOut>
-      <h1 class="logo">Silent Sanctrum</h1>
-      <button class="button" (click)="login()">Login / Sign up</button>
+      <div class="main-login">
+        <div class="logo">Silent Sanctrum</div>
+        <div class="logo-subtitle">Anonymity like never before</div>
+        <button class="login-button" (click)="login()">Login / Sign up</button>
+      </div>
     </ng-template>
   </div>
 </div>

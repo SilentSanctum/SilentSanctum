@@ -13,6 +13,10 @@
             <div class="profile-card-content">
                 <div class="profile-name">Anonymous</div>
                 <div class="profile-id">asdhsadfkskhushdfh</div>
+                <div class="logout-button"
+                    (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })" routerLink="/login">
+                    Log out
+                </div>
             </div>
         </div>
     </div>

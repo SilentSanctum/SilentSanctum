@@ -1,28 +1,39 @@
-.logo{
-    font-family: 'Pacifico', cursive;
-    letter-spacing: 0.7px;
-}
-.button{
-    width: 150px;
-    background-color: rgb(81, 81, 247);
-    color: white;
-    border-radius: 20px;
-    border: none;
-    padding: 10px;
-    /* font-family: 'Pacifico', cursive; */
-    letter-spacing: 0.4px;
-    font-weight: 500;
-    font-size: 14px;
-}
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.logo-container{
+.main-login{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    min-height: 100dvh;
+    width: fit-content;
+    margin: auto;
     align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    font-weight: 600;
+    font-size: 2.5em;
+    text-align: center;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.1em;
+    color:white;
+}
+
+.login-button{
+    background-color: var(--blue);
+    color:white;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    border: 0px solid;
+    padding:0.5em 1em;
+    font-size:0.85em;
+    border-radius: 12px;
+    margin:2em;
+}
+
+.login-button:hover{
+    opacity: 70%;
+}
+
+.logo-subtitle{
+    letter-spacing: -0.03em;
+    font-size: 1.2em;
 }

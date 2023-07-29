@@ -7,9 +7,5 @@
     <div class="main-display">
       <router-outlet></router-outlet>
     </div>
-    <button class="button hidden" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
-      routerLink="/login">
-      Log out
-    </button>
   </div>
 </ng-container>

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     //   },
     // );
     // console.log("profile data: ", this.profileJson);
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/posts');
     this.auth.user$.subscribe((profile) => {
       // console.log("profile from subs login:", profile);
       this.profileJson = profile;

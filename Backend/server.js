@@ -10,6 +10,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 const { v4: uuidv4 } = require('uuid');
 const short = require('short-uuid');
+const postLimit = 10;
+const confLimit = 5;
+const pollLimit = 2;
 //Schemas
 const loggedInSchema = new mongoose.Schema({
     email: String,
@@ -18,6 +21,7 @@ const loggedInSchema = new mongoose.Schema({
     username: String
 });
 
+loggedInSchema.path('loggedIn').index({ expires: 86400 });
 const LoggedInUser = mongoose.model('LoggedInUser', loggedInSchema);
 
 const usersSchema = new mongoose.Schema({
@@ -30,7 +34,9 @@ const usersSchema = new mongoose.Schema({
     pollCount: Number
 });
 
+usersSchema.path('created').index({ expires: 86400 });
 const User = mongoose.model('User', usersSchema);
+
 
 const postSchema = new mongoose.Schema({
     topic: String,
@@ -40,6 +46,7 @@ const postSchema = new mongoose.Schema({
     reactions: { type: Array, required: false },
     comments: { type: Array, required: false }
 })
+postSchema.path('created').index({ expires: 86400 });
 const Post = mongoose.model('Post', postSchema);
 
 const commentSchema = new mongoose.Schema({
@@ -54,23 +61,9 @@ const commentSchema = new mongoose.Schema({
     },
     comments: Array
 })
+commentSchema.path('created').index({ expires: 86400 });
 
 const Comment = mongoose.model('Comment', commentSchema);
-
-
-
-
-const initDB = () => {
-    let testLoggedUsers = new User({
-        username: "test",
-        email: "test@test.com",
-        created: Date.now()
-    })
-    testLoggedUsers.save().then((msg) => {
-        console.log(msg);
-    }).catch(e => console.log(e));
-}
-
 
 app.post("/login", (req, res) => {
     try {
@@ -79,6 +72,7 @@ app.post("/login", (req, res) => {
         let targetUsername = null;
         User.findOne({ email: email }).exec().then((docs) => {
             if (!docs) {
+                //If user is a new user or dead user
                 let newUsername = String(short.generate());
                 targetUsername = newUsername;
                 let newUser = new User({
@@ -95,30 +89,48 @@ app.post("/login", (req, res) => {
                 }).catch(e => console.log(e));
             }
             else {
+                //If user is still alive
                 console.log(docs);
                 targetUsername = docs.username;
             }
-            let loginId = String(uuidv4());
-            let loggedUser = new LoggedInUser({
-                email: email,
-                loggedIn: Date.now(),
-                uniqueKey: loginId,
-                username: targetUsername
-            });
-            loggedUser.save().then(() => {
-                let loggedResponse = {
-                    "username": targetUsername,
-                    "loginId": loginId
+            LoggedInUser.findOne({ username: targetUsername }).exec().then((docs) => {
+                if (!docs) {
+                    //If Logged in user is not present
+                    let loginId = String(uuidv4());
+                    let loggedUser = new LoggedInUser({
+                        email: email,
+                        loggedIn: Date.now(),
+                        uniqueKey: loginId,
+                        username: targetUsername
+                    });
+                    loggedUser.save().then(() => {
+                        let loggedResponse = {
+                            "username": targetUsername,
+                            "loginId": loginId
+                        }
+                        res.send(loggedResponse);
+                    }).catch((e) => {
+                        console.log(e);
+                    })
                 }
-                res.send(loggedResponse);
-            }).catch((e) => {
-                console.log(e);
+                else {
+                    //If Logged in user is present
+                    let result = { "username": docs.username, "loginId": docs.uniqueKey }
+                    res.send(result);
+                }
             })
-        }).catch(e => console.log(e))
+        }).catch(e => console.log(e));
     }
     catch (e) {
         console.error(e);
     }
+})
+
+app.post("/logout", (req, res) => {
+    let userToLogout = req.body.loginId;
+    LoggedInUser.deleteOne({ uniqueKey: userToLogout }).exec().then((doc) => {
+        res.send(doc);
+    }).catch(e => res.send(e));
 })
 
 app.listen(port, () => {

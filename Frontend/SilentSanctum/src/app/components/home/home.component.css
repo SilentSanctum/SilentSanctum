@@ -1,12 +1,18 @@
-.button{
-    width: 150px;
-    background-color: rgb(81, 81, 247);
-    color: white;
-    border-radius: 20px;
-    border: none;
-    padding: 10px;
-    /* font-family: 'Pacifico', cursive; */
-    letter-spacing: 0.4px;
-    font-weight: 500;
-    font-size: 14px;
+.main-content{
+    display: flex;
+}
+
+.hidden{
+    display: none;
+}
+
+.main-display{
+    margin:1em;
+    margin-left: 0;
+    margin-top: 0;
+    background-color: var(--black);
+    border-radius: 12px;
+    min-width: 80dvw;
+    min-height:90dvh;
+    /* border:2px solid var(--light-grey); */
 }

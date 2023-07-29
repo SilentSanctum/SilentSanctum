@@ -8,12 +8,16 @@ import { environment } from 'src/environments/envronmet';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,11 +28,11 @@ import { HttpClientModule } from '@angular/common/http';
       domain: 'dev-yhlqy75o81n2y7y6.us.auth0.com',
       clientId: 'f4mPTWqyTXtMb9FkDT8R490Dwsr9TUtA',
       authorizationParams: {
-        redirect_uri: 'http://localhost:4200/home'
-      }
+        redirect_uri: 'http://localhost:4200/home',
+      },
     }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

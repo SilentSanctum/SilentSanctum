@@ -78,3 +78,32 @@
     align-content: center;
     align-items: center;
 }
+
+
+.post-reaction-item img{
+    width:20px;
+    opacity: 40%;
+}
+
+
+.post-reactions{
+    display: flex;
+    align-content: center;
+    margin-top:0.7em;
+}
+
+.post-reaction-item{
+    margin-right:0.8em;
+    display: flex;
+    align-content: center;
+    font-weight: bold;
+    font-size:0.85em;
+}
+
+.post-reaction-item img:hover{
+    opacity: 100%;
+}
+
+.post-reaction-active img{
+    opacity: 100% !important; 
+}

@@ -50,7 +50,6 @@ const Post = mongoose.model('Post', postSchema);
 
 const commentSchema = new mongoose.Schema({
     parentId: { type: mongoose.Schema.ObjectId, required: false },
-    topic: String,
     created: Date,
     author: String,
     content: String,
@@ -60,14 +59,6 @@ commentSchema.path('created').index({ expires: 86400 });
 
 const Comment = mongoose.model('Comment', commentSchema);
 
-const checkUser = async (loginId) => {
-    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
-        if (!data) {
-            return null;
-        }
-        return data;
-    })
-}
 
 app.post("/login", (req, res) => {
     try {
@@ -159,6 +150,7 @@ app.post("/new_post", (req, res) => {
             reactions: [],
         });
         newPost.save().then((docs) => {
+
             return res.send(docs);
         }).catch(e => { return res.status(500).send(e) });
     });
@@ -189,6 +181,47 @@ app.post("/posts", (req, res) => {
     } catch (c) {
         return res.status(500).send(e);
     }
+})
+
+app.post("/comments", (req, res) => {
+    let loginId = req.body.loginId;
+    let parentIdReq = req.body.parentId;
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((user) => {
+        if (!user) {
+            return res.status(401).send("You must log in first");
+        }
+        Comment.find({ parentId: parentIdReq }).exec().then((data) => {
+            return res.send(data);
+        });
+    }).catch((e) => {
+        return res.status(500).send(e);
+    });
+})
+
+app.post("/new_comment", (req, res) => {
+    let loginId = req.body.loginId;
+    let parentIdReq = req.body.parentId;
+    let commentContent = req.body.commentContent;
+    if (!parentIdReq || !commentContent) {
+        return res.status(500).send("Missing body");
+    }
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((user) => {
+        if (!user) {
+            return res.status(401).send("You must log in first");
+        }
+        let newComment = new Comment({
+            parentId: parentIdReq,
+            created: Date.now(),
+            author: user.username,
+            content: commentContent,
+            reactions: [],
+        });
+        newComment.save().then((doc) => {
+            return res.send(doc);
+        })
+    }).catch((e) => {
+        return res.status(500).send(e);
+    });
 })
 
 app.listen(port, () => {

@@ -1,8 +1,13 @@
-<p>home works!</p>
-<p>welcome</p>
 <ng-container *ngIf="auth.isAuthenticated$ | async; ">
-    <!-- <app-home></app-home> -->
-    <button class="button" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })" routerLink="/login">
+  <app-navbar></app-navbar>
+  <div class="main-content">
+    <div class="sidebar-holder">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="main-display"></div>
+    <button class="button hidden" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
+      routerLink="/login">
       Log out
     </button>
-  </ng-container>
+  </div>
+</ng-container>

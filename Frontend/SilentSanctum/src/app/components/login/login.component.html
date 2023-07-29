@@ -1,21 +1,11 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 <div class="container">
-    <div class="logo-container">
-        <!-- <img src="https://github.com/prajwalkpatil/kanban/assets/32927982/7a551726-db23-488a-9be4-785733c3fbb4" alt="logo" class="logo"> -->
-        <!-- <h1 class="logo">Silent Sanctrum</h1> -->
-        <!-- <button class="button" (click)="auth.loginWithRedirect()" routerLink="/login">Login / Sign up</button> -->
-        <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-            <app-home></app-home>
-            <!-- <button class="button" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })" routerLink="/login">
-              Log out
-            </button> -->
-          </ng-container>
-      
-          <ng-template #loggedOut>
-            <h1 class="logo">Silent Sanctrum</h1>
-            <button class="button" (click)="auth.loginWithRedirect()">Login / Sign up</button>
-          </ng-template>
-    </div>
+  <div class="logo-container">
+    <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+      <app-home></app-home>
+    </ng-container>
+    <ng-template #loggedOut>
+      <h1 class="logo">Silent Sanctrum</h1>
+      <button class="button" (click)="auth.loginWithRedirect()">Login / Sign up</button>
+    </ng-template>
+  </div>
 </div>

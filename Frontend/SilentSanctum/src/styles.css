@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --light-black:#0B1416;
+    --black:#04090A;
+    --light-grey: #82959B;
+    --grey:#1A282D;
+    --blue:#1870F4;
+    --white:#ffffff;
+    --inter:'Inter', sans-serif;
+    --space:'Space Grotesk', sans-serif;
+}
+
+body{
+    background-color: var(--light-black);
+    color:var(--light-grey);
+    margin:0;
+    padding:0;
+}
+*{
+    font-family: var(--inter);
+}

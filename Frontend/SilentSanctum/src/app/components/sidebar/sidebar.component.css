@@ -1,0 +1,29 @@
+.sidebar-main{
+    display: flex;
+    flex-direction: column;
+    margin-left:1em;
+    margin-top: 2em;
+}
+
+.sidebar-item{
+    min-width:120px;
+    padding:0.7em;
+    font-weight: 600;
+    margin-bottom:1em;
+    letter-spacing: -0.03em;
+    margin-left:1em;
+    background-color: var(--black);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    opacity: 60%;
+}
+
+.sidebar-item:hover{
+    opacity: 100%;
+
+}
+.sidebar-item-selected{
+    border: 2px solid var(--light-grey);
+    border-right-width: 0px;
+    opacity: 100%;
+}

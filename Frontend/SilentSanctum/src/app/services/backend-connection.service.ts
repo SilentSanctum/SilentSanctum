@@ -16,5 +16,17 @@ export class BackendConnectionService {
   newPost(data: any) {
     return this.http.post<any>(`${this.baseUrl}/new_post`, data);
   }
+
+  getAllPosts() {
+    return this.http.get<any[]>(`${this.baseUrl}/posts`);
+  }
+
+  getAllComments() {
+    return this.http.get<any[]>(`${this.baseUrl}/comments`);
+  }
+
+  addComment(data: any) {
+    return this.http.post<any>(`${this.baseUrl}/new_comment`, data);
+  }
   
 }

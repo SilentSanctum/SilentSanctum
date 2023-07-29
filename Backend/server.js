@@ -4,10 +4,12 @@ const env = require('dotenv').config();
 const db_username = process.env.DB_USERNAME;
 const db_password = process.env.DB_PASSWORD;
 const mongoose = require("mongoose");
+const cors = require('cors');
 mongoose.connect(`mongodb+srv://${db_username}:${db_password}@cluster0.upopivo.mongodb.net/silentsanctum?retryWrites=true&w=majority`);
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors())
 const { v4: uuidv4 } = require('uuid');
 const short = require('short-uuid');
 const postLimit = 10;

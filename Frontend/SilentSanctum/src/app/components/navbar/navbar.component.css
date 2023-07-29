@@ -9,6 +9,10 @@ nav{
     justify-content: space-between;
     align-content: center;
 }
+/* .title{
+    font-family: 'Pacifico', cursive;
+    letter-spacing: 0.7px;
+} */
 
 .nav-section{
     display: flex;
@@ -25,7 +29,7 @@ nav{
     align-items: flex-start;
 }
 
-.profile-pic{
+.profile-pic-container{
     width:40px;
     height:40px;
     background-color: var(--light-grey);
@@ -33,12 +37,22 @@ nav{
     margin: auto 0;
     margin-left:10px
 }
+
+.profile-pic{
+    width:40px;
+    height:40px;
+    background-color: var(--light-grey);
+    border-radius: 50px;
+    margin: auto 0;
+    /* margin-left:10px */
+}
 .profile-card-content{
     display: flex;
     flex-direction: column;
     margin: auto;
     margin-left:1em;
     height: fit-content;
+    /* align-self: space-between; */
 }
 
 .profile-name{

@@ -1,13 +1,18 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 <nav>
     <div class="nav-section">
-        <div class="nav-title">SilentSanctum</div>
+        <div class="nav-title title">SilentSanctum</div>
     </div>
     <div class="nav-section">
         <div class="profile-card">
-            <div class="profile-pic"></div>
+            <div class="profile-pic-container">
+                <img src={{userProfilePic}} class="profile-pic">
+            </div>
             <div class="profile-card-content">
                 <div class="profile-name">Anonymous</div>
-                <div class="profile-id">asdhsadfkskhushdfh</div>
+                <div class="profile-id">{{userNickName}}</div>
                 <div class="logout-button"
                     (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })" routerLink="/login">
                     Log out

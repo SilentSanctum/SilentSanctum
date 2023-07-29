@@ -7,11 +7,28 @@ import { AuthService } from '@auth0/auth0-angular';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  profileJson: any;
+  userProfilePic: any;
+  userNickName: any;
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService
   ) {}
+
+  ngOnInit(): void {
+    this.auth.user$.subscribe((profile) => {
+      // console.log("profile from subs login:", profile);
+      this.profileJson = profile;
+      console.log('profile json:', this.profileJson);
+      this.userProfilePic = profile?.picture;
+      this.userNickName = profile?.nickname;
+      console.log("user pic: ", this.userProfilePic);
+    });
+    // this.userProfilePic = this.profileJson.picture;
+    console.log("profile out of scope: ", this.profileJson);
+    console.log("user pic: ", this.userProfilePic);
+  }
 
   logoutUser() {}
 }

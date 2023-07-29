@@ -8,12 +8,9 @@ import { environment } from 'src/environments/envronmet';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-<<<<<<< HEAD
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-=======
 
->>>>>>> e54a4207c96566f02083e6c791d69e04b7ed6f66
 @NgModule({
   declarations: [
     AppComponent,

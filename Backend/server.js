@@ -76,7 +76,7 @@ const checkUser = async (loginId) => {
 
 app.post("/login", (req, res) => {
     try {
-        let key = req.body.auth0_key;
+        let key = req.body.sub;
         let emailAdd = req.body.email;
         let targetUsername = null;
         User.findOne({ email: emailAdd }).exec().then((docs) => {
@@ -149,7 +149,7 @@ app.post("/logout", (req, res) => {
 app.post("/new_post", (req, res) => {
     let loginId = req.body.loginId;
     let postContent = req.body.postContent;
-
+    let topicName = req.body.topic;
     LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
         if (!data) {
             console.log("User not logged in");
@@ -157,7 +157,7 @@ app.post("/new_post", (req, res) => {
         }
         //If user is logged in
         let newPost = new Post({
-            topic: req.body.title,
+            topic: topicName,
             created: Date.now(),
             author: data.username,
             content: postContent,
@@ -179,9 +179,16 @@ app.post("/posts", (req, res) => {
             res.sendStatus(401);
         }
         //If user is logged in
-        Post.find({ topic: topicName }).exec().then((docs) => {
-            res.send(docs);
-        }).catch(e => res.sendStatus(500));
+        if (topicName) {
+            Post.find({ topic: topicName }).exec().then((docs) => {
+                res.send(docs);
+            }).catch(e => res.sendStatus(500));
+        }
+        else {
+            Post.find().exec().then((docs) => {
+                res.send(docs);
+            }).catch(e => res.sendStatus(500));
+        }
     });
 })
 

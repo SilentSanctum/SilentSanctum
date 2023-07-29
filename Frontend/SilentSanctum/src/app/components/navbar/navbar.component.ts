@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { BackendConnectionService } from 'src/app/services/backend-connection.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,23 +13,25 @@ export class NavbarComponent implements OnInit {
   profileJson: any;
   userProfilePic: any;
   userNickName: any;
+  userToken: any;
   constructor(
     @Inject(DOCUMENT) public document: Document,
-    public auth: AuthService
+    public auth: AuthService,
+    public backendService: BackendConnectionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.auth.user$.subscribe((profile) => {
       // console.log("profile from subs login:", profile);
+      this.backendService.login(profile).subscribe((response) => {
+        // console.log('response: ', response);
+        this.userToken = response.username;
+      });
       this.profileJson = profile;
-      console.log('profile json:', this.profileJson);
       this.userProfilePic = profile?.picture;
       this.userNickName = profile?.nickname;
-      console.log("user pic: ", this.userProfilePic);
     });
-    // this.userProfilePic = this.profileJson.picture;
-    console.log("profile out of scope: ", this.profileJson);
-    console.log("user pic: ", this.userProfilePic);
   }
 
   logoutUser() {}

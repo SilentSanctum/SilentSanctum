@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HomeComponent,
     NavbarComponent,
     SidebarComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,

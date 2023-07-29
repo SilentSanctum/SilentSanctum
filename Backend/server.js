@@ -44,7 +44,6 @@ const postSchema = new mongoose.Schema({
     author: String,
     content: String,
     reactions: { type: Array, required: false },
-    comments: { type: Array, required: false }
 })
 postSchema.path('created').index({ expires: 86400 });
 const Post = mongoose.model('Post', postSchema);
@@ -55,11 +54,7 @@ const commentSchema = new mongoose.Schema({
     created: Date,
     author: String,
     content: String,
-    reactions: {
-        type: Array,
-        required: false
-    },
-    comments: Array
+    reactions: { type: Array, required: false },
 })
 commentSchema.path('created').index({ expires: 86400 });
 
@@ -96,7 +91,7 @@ app.post("/login", (req, res) => {
                 })
                 newUser.save().then((msg) => {
                     console.log(`User created ${newUsername}`)
-                }).catch(e => { console.log(e); res.sendStatus(500); });
+                }).catch(e => { console.log(e); return res.status(500).send(e); });
             }
             else {
                 //If user id is still alive
@@ -120,30 +115,30 @@ app.post("/login", (req, res) => {
                             "username": targetUsername,
                             "loginId": loginId
                         }
-                        res.send(loggedResponse);
+                        return res.send(loggedResponse);
                     }).catch((e) => {
-                        res.sendStatus(500);
+                        return res.status(500).send(e);
                     })
                 }
                 else {
                     //If Logged in user is present
                     console.log("Logged in user is present");
                     let result = { "username": docs.username, "loginId": docs.uniqueKey }
-                    res.send(result);
+                    return res.send(result);
                 }
             })
-        }).catch(e => res.sendStatus(500));
+        }).catch(e => { return res.status(500).send(e) });
     }
     catch (e) {
-        console.error(e);
+        return res.status(500).send(e);
     }
 })
 
 app.post("/logout", (req, res) => {
     let userToLogout = req.body.loginId;
     LoggedInUser.deleteOne({ uniqueKey: userToLogout }).exec().then((doc) => {
-        res.send(doc);
-    }).catch(e => res.sendStatus(500));
+        return res.send(doc);
+    }).catch(e => { return res.status(500).send(e) });
 })
 
 app.post("/new_post", (req, res) => {
@@ -153,7 +148,7 @@ app.post("/new_post", (req, res) => {
     LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
         if (!data) {
             console.log("User not logged in");
-            res.sendStatus(401);
+            return res.status(401).send("User not logged in");
         }
         //If user is logged in
         let newPost = new Post({
@@ -162,34 +157,38 @@ app.post("/new_post", (req, res) => {
             author: data.username,
             content: postContent,
             reactions: [],
-            comments: []
         });
         newPost.save().then((docs) => {
-            res.send(docs);
-        }).catch(e => res.sendStatus(500));
+            return res.send(docs);
+        }).catch(e => { return res.status(500).send(e) });
     });
 })
 
 app.post("/posts", (req, res) => {
     let loginId = req.body.loginId;
-    let topicName = req.body.topic;
-    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
-        if (!data) {
-            console.log("User not logged in");
-            res.sendStatus(401);
-        }
-        //If user is logged in
-        if (topicName) {
-            Post.find({ topic: topicName }).exec().then((docs) => {
-                res.send(docs);
-            }).catch(e => res.sendStatus(500));
-        }
-        else {
-            Post.find().exec().then((docs) => {
-                res.send(docs);
-            }).catch(e => res.sendStatus(500));
-        }
-    });
+    try {
+        let topicName = req.body.topic;
+        LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((data) => {
+            if (!data) {
+                return res.status(401).send("User not logged in");
+            }
+            //If user is logged in
+            if (topicName) {
+                Post.find({ topic: topicName }).exec().then((docs) => {
+                    return res.send(docs);
+                }).catch(e => { return res.status(500).send(e) });
+            }
+            else {
+                Post.find().exec().then((docs) => {
+                    return res.send(docs);
+                }).catch(e => { return res.status(500).send(e) });
+            }
+        }).catch((e) => {
+            return res.status(500).send(e);
+        });
+    } catch (c) {
+        return res.status(500).send(e);
+    }
 })
 
 app.listen(port, () => {

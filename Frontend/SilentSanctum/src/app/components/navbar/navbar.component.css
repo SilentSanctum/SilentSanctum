@@ -42,11 +42,22 @@ nav{
 }
 
 .profile-name{
-    font-size: 0.8em;
+    font-size: 0.7em;
     color: white;
 }
 
 .profile-id{
     font-weight: 400;
+    font-size: 0.6em;
+}
+
+
+.logout-button{
     font-size: 0.7em;
+    cursor: pointer;
+}
+
+.logout-button:hover{
+    color:white;
+    text-decoration: underline;
 }

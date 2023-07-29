@@ -10,6 +10,7 @@ import { AuthService } from '@auth0/auth0-angular';
 export class NavbarComponent implements OnInit {
   profileJson: any;
   userProfilePic: any;
+  userNickName: any;
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService
@@ -21,6 +22,7 @@ export class NavbarComponent implements OnInit {
       this.profileJson = profile;
       console.log('profile json:', this.profileJson);
       this.userProfilePic = profile?.picture;
+      this.userNickName = profile?.nickname;
       console.log("user pic: ", this.userProfilePic);
     });
     // this.userProfilePic = this.profileJson.picture;

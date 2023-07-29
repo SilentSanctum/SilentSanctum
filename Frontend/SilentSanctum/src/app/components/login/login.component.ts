@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       if(isAuthenticated){
         this.router.navigateByUrl('/home');
       } else {
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl('/login');
       }
     })
   }

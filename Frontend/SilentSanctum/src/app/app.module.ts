@@ -13,6 +13,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NewPostComponent } from './components/new-post/new-post.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     // AuthModule.forRoot(environment.auth),
     AuthModule.forRoot({
       domain: 'dev-yhlqy75o81n2y7y6.us.auth0.com',

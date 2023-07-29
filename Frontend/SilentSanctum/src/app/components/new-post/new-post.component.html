@@ -1,13 +1,17 @@
-<div class="main-new-post">
-    <div class="new-post-nav">
-        <div class="back-button" routerLink="/posts"><img src="../../../assets/back.png" alt=""></div>
-        <div class="new-post-title">New Post</div>
+<form [formGroup]="postForm" (ngSubmit)="submitPost()">
+    <div class="main-new-post">
+        <div class="new-post-nav">
+            <div class="back-button" routerLink="/posts"><img src="../../../assets/back.png" alt=""></div>
+            <div class="new-post-title">New Post</div>
+        </div>
+        <div class="new-post-content">
+            <input type="text" class="new-post-input" placeholder="Post Content" formControlName="postContent">
+            <input type="text" class="new-post-input topic-input" placeholder="Topic" formControlName="topic">
+        </div>
+        <div class="new-post">
+            <div>
+                <button class="new-post-btn" type="submit" value="submit">Done</button>
+            </div>
+        </div>
     </div>
-    <div class="new-post-content">
-        <input type="text" class="new-post-input" placeholder="Post Content">
-        <input type="text" class="new-post-input topic-input" placeholder="Topic">
-    </div>
-    <div class="new-post">
-        <div class="new-post-btn">Done</div>
-    </div>
-</div>
+</form>

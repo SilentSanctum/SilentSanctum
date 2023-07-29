@@ -7,6 +7,7 @@ import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/envronmet';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     // AuthModule.forRoot(environment.auth),
     AuthModule.forRoot({
       domain: 'dev-yhlqy75o81n2y7y6.us.auth0.com',

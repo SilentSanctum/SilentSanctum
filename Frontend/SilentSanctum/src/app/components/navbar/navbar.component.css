@@ -9,6 +9,10 @@ nav{
     justify-content: space-between;
     align-content: center;
 }
+/* .title{
+    font-family: 'Pacifico', cursive;
+    letter-spacing: 0.7px;
+} */
 
 .nav-section{
     display: flex;

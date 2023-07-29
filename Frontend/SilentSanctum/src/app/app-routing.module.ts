@@ -5,6 +5,7 @@ import { AuthGuard } from '@auth0/auth0-angular';
 import { HomeComponent } from './components/home/home.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
@@ -14,6 +15,7 @@ const routes: Routes = [
   },
   { path: 'posts', component: PostsComponent },
   { path: 'comments', component: CommentsComponent },
+  { path: 'new_post', component: NewPostComponent },
 ];
 
 @NgModule({

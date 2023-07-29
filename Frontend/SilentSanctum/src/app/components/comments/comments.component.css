@@ -1,5 +1,7 @@
 .main-comment{
     padding: 2em;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
 .comment-title{

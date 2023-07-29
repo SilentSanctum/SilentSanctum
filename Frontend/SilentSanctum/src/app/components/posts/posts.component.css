@@ -2,6 +2,7 @@
     display: flex;
     margin: 2em;
     flex-wrap: wrap;
+    margin-top: 0.5em;
 }
 
 .post-details div{
@@ -118,4 +119,28 @@
     width: 100vw -(100vw * 10%);
     height:100dvh;
     background-color: black;
+}
+
+.new-post-btn{
+    background-color: var(--white);
+    padding:0.4em 1em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    width: fit-content;
+    color:var(--black);
+    margin:1em;
+    margin-bottom: 0;
+    border-radius: 12px;
+    opacity: 70%;
+    cursor: pointer;
+}
+
+.new-post-btn:hover{
+    opacity: 100%;
+}
+
+.new-post{
+    display: flex;
+    align-content: flex-end;
+    justify-content: flex-end;
 }

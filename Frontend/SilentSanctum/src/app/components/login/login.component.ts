@@ -17,7 +17,15 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.isAuthenticated$.subscribe((isAuthenticated) => {
+      if(isAuthenticated){
+        this.router.navigateByUrl('/home');
+      } else {
+        this.router.navigateByUrl('');
+      }
+    })
+  }
 
   login() {
     this.auth.loginWithRedirect();

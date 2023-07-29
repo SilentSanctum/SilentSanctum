@@ -15,6 +15,7 @@ export class BackendConnectionService {
 
   newPost(data: any) {
     const body = data;
+    console.log(body);
     return this.http.post<any>(`${this.baseUrl}/new_post`, body);
   }
 
@@ -29,5 +30,4 @@ export class BackendConnectionService {
   addComment(data: any) {
     return this.http.post<any>(`${this.baseUrl}/new_comment`, data);
   }
-  
 }

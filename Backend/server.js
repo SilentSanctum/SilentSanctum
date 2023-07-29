@@ -9,6 +9,7 @@ mongoose.connect(`mongodb+srv://${db_username}:${db_password}@cluster0.upopivo.m
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json())
 app.use(cors())
 const { v4: uuidv4 } = require('uuid');
 const short = require('short-uuid');

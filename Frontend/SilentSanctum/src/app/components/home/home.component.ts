@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { User } from '@auth0/auth0-spa-js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomeComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
-    public backendService: BackendConnectionService
+    public backendService: BackendConnectionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit {
     //   },
     // );
     // console.log("profile data: ", this.profileJson);
+    this.router.navigateByUrl('/home');
     this.auth.user$.subscribe((profile) => {
       // console.log("profile from subs login:", profile);
       this.profileJson = profile;
@@ -33,5 +36,8 @@ export class HomeComponent implements OnInit {
         console.log('response: ', response);
       });
     });
+    this.backendService.getAllPosts().subscribe((response) => {
+      console.log("all posts: ", response);
+    })
   }
 }

@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
       console.log('profile json:', this.profileJson);
       this.backendService.login(profile).subscribe((response) => {
         console.log('response: ', response);
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('LoginId', response.loginId);
       });
     });
     this.backendService.getAllPosts().subscribe((response) => {

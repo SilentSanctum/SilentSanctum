@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PostsComponent } from './components/posts/posts.component';
     NavbarComponent,
     SidebarComponent,
     PostsComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,

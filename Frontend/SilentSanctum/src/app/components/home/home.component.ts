@@ -20,13 +20,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.auth.user$.subscribe(
-    //   (profile) =>{
-    //     console.log("profile from subs: ", profile);
-    //     (this.profileJson = profile);
-    //   },
-    // );
-    // console.log("profile data: ", this.profileJson);
+    // this.auth.user$.subscribe((profile) => {
+    //   console.log('profile from subs: ', profile);
+    //   this.profileJson = profile;
+
+    //   console.log('profile data: ', this.profileJson);
+    // });
     this.router.navigateByUrl('/posts');
     this.auth.user$.subscribe((profile) => {
       // console.log("profile from subs login:", profile);
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
       });
     });
     this.backendService.getAllPosts().subscribe((response) => {
-      console.log("all posts: ", response);
-    })
+      console.log('all posts: ', response);
+    });
   }
 }

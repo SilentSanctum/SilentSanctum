@@ -112,3 +112,10 @@
     align-content: center;
 
 }
+
+.dialog{
+    position: absolute;
+    width: 100vw -(100vw * 10%);
+    height:100dvh;
+    background-color: black;
+}

@@ -38,12 +38,11 @@
 }
 
 .new-post-content{
+    display: flex;
+    flex-direction: column;
     margin:2em;
 }
 
-#new-post-content{
-    background-color: var(--);
-}
 
 .new-post-btn{
     background-color: var(--white);
@@ -71,12 +70,22 @@
     width:500px;
 }
 
-#new-post-content{
+.new-post-input{
+    margin:0.5em;
+    border: 0.5px solid var(--light-grey);
     width:420px;
     background-color: var(--black);
-    border-radius: 12px;
+    border-radius: 8px;
     font-size:1.2em;
     padding:0.2em 0.4em;
     color:white;
 }
 
+.new-post-input::placeholder{
+    letter-spacing: -0.03em;
+    font-size: 0.8em;
+}
+
+.topic-input{
+    width:200px
+}

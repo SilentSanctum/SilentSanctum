@@ -25,5 +25,8 @@
 .sidebar-item-selected{
     border: 2px solid var(--light-grey);
     border-right-width: 0px;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: -0.04em;
     opacity: 100%;
 }

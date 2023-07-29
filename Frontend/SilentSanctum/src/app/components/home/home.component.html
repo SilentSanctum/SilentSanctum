@@ -4,7 +4,9 @@
     <div class="sidebar-holder">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="main-display"></div>
+    <div class="main-display">
+      <router-outlet></router-outlet>
+    </div>
     <button class="button hidden" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })"
       routerLink="/login">
       Log out

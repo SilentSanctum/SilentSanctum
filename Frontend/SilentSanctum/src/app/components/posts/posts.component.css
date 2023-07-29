@@ -1,0 +1,92 @@
+.posts-main{
+    display: flex;
+    margin: 2em;
+    flex-wrap: wrap;
+}
+
+.post-details div{
+    height: fit-content;
+}
+
+.post-item{
+    width:250px;
+    min-height: 150px;
+    border-radius: 12px;
+    border:2px solid var(--grey);
+    padding: 1.5em;
+    margin:0.8em;
+}
+
+.post-title{
+    color: var(--white);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    font-size: 1.2em;
+}
+
+.post-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post-author{
+    text-align: right;
+    letter-spacing: -0.03em;
+    font-size: 0.89em;
+}
+
+.post-author span{
+    font-weight: 600;
+    color:white;
+}
+
+.post-time{
+    letter-spacing: -0.03em;
+    font-size: 0.85em;
+}
+.post-time span{
+    font-weight: 600;
+    color:white;
+}
+
+.post-reaction-item img{
+    width:20px;
+    opacity: 40%;
+}
+
+
+.post-reactions{
+    display: flex;
+    align-content: center;
+    margin-top:0.7em;
+}
+
+.post-reaction-item{
+    margin-right:0.8em;
+    display: flex;
+    align-content: center;
+    font-weight: bold;
+    font-size:0.85em;
+}
+
+.post-reaction-item img:hover{
+    opacity: 100%;
+}
+
+.post-reaction-active img{
+    opacity: 100% !important; 
+}
+
+.comments-div{
+    display: flex;
+    font-size: 0.8em;
+    letter-spacing: -0.03em;
+    text-align: end;
+    margin-bottom:-1em;
+    justify-content: flex-end;
+}
+
+.comments-div:hover{
+    text-decoration: underline;
+}

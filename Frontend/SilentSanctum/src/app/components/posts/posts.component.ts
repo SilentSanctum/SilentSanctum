@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-posts',
@@ -7,7 +8,10 @@ import { BackendConnectionService } from 'src/app/services/backend-connection.se
   styleUrls: ['./posts.component.css'],
 })
 export class PostsComponent {
-  constructor(public backendService: BackendConnectionService) {}
+  constructor(
+    public backendService: BackendConnectionService,
+    private postService: PostsService
+  ) {}
   allPosts: any = null;
 
   calculateRemainingTime(created: any) {
@@ -41,14 +45,7 @@ export class PostsComponent {
     }
   }
   ngOnInit() {
-    const getPostsUserId = localStorage.getItem('LoginId');
-    console.log('user id: ', getPostsUserId);
-    const getPostsData = {
-      loginId: getPostsUserId,
-    };
-    this.backendService.getAllPosts(getPostsData).subscribe((response) => {
-      this.allPosts = response;
-      console.log('all posts: ', response);
-    });
+    this.postService.changePosts();
+    this.postService.postsFetched.subscribe((posts) => (this.allPosts = posts));
   }
 }

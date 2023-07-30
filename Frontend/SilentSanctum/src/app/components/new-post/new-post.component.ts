@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
+import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
   selector: 'app-new-post',
@@ -15,7 +16,8 @@ export class NewPostComponent implements OnInit {
     private fb: FormBuilder,
     public auth: AuthService,
     public backendService: BackendConnectionService,
-    private router: Router
+    private router: Router,
+    private postService: PostsService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class NewPostComponent implements OnInit {
       console.log('post form data: ', postData);
       this.backendService.newPost(postData).subscribe((response) => {
         console.log('response from new post: ', response);
+        this.postService.changePosts();
       });
       this.router.navigateByUrl('/posts');
     }

@@ -1,4 +1,4 @@
-# SilentSanctum
+# SilentSanctum <img src="https://github.com/SilentSanctum/SilentSanctum/assets/32927982/968823b8-53e0-4091-96e9-5e0030e1392a" alt="alt text" align="right" width="200"/>
 #### _Embrace Anonymity: Discover, Express, Engage_
 
 Silent Sanctum is an innovative anonymous social media application that empowers users to freely express themselves without fear of judgment or exposure. It provides a safe and respectful environment for authentic interactions, where users can engage based solely on the quality of content they share.

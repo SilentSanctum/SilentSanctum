@@ -20,6 +20,8 @@ cd silent-sanctum
 ```
 
 #### Install the dependencies:
+Install the dependencies in Frontend and Backend folders respectively.
+
 ```npm install```
 
 #### Set up environment variables:
@@ -28,6 +30,23 @@ Create a .env file in Backend directory and add the following variables:
 DB_USERNAME=<your mongodb username>
 DB_PASSWORD=<your mongodb password>
 ```
+
+#### Run Angular app
+In Frontend/SilentSanctum folder, open terminal and type:
+_Make sure you have latest Angular core and CLI installed_
+```bash
+ng serve -o
+```
+
+#### Run Node.js server
+In Backend folder, open terminal and type:
+_Make sure you serve in port 3000._
+```bash
+node server.js
+```
+
+You are good to go now!
+
 ### Contributing
 We welcome contributions to improve Silent Sanctum and make it even better. To contribute, follow these steps:
 

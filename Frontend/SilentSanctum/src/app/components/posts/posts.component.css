@@ -40,7 +40,8 @@
 .post-author{
     text-align: right;
     letter-spacing: -0.03em;
-    font-size: 0.89em;
+    /* font-size: 0.89em; */
+    font-size: 0.79em;
 }
 
 .post-author span{
@@ -50,7 +51,8 @@
 
 .post-time{
     letter-spacing: -0.03em;
-    font-size: 0.85em;
+    /* font-size: 0.85em; */
+    font-size: 0.75em;
 }
 .post-time span{
     font-weight: 600;

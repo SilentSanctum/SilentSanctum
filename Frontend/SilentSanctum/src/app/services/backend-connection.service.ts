@@ -12,6 +12,10 @@ export class BackendConnectionService {
     const body = profile;
     return this.http.post<any>(`${this.baseUrl}/login`, body);
   }
+  logout(profile: any) {
+    const body = profile;
+    return this.http.post<any>(`${this.baseUrl}/logout`, body);
+  }
 
   newPost(data: any) {
     const body = data;

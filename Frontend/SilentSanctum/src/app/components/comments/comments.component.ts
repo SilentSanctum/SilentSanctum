@@ -16,7 +16,7 @@ export class CommentsComponent {
   allComments: any = [];
   newCommentBtnClicked = false;
 
-  openCommentContianer() {
+  openCommentContainer() {
     this.newCommentBtnClicked = true; //update to false in the comment submit button
   }
 

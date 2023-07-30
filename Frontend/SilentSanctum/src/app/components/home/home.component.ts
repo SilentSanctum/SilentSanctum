@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     public backendService: BackendConnectionService,
     private router: Router
   ) {}
-
+  allPosts: any = null;
   ngOnInit(): void {
     // this.auth.user$.subscribe((profile) => {
     //   console.log('profile from subs: ', profile);
@@ -36,14 +36,6 @@ export class HomeComponent implements OnInit {
         localStorage.setItem('username', response.username);
         localStorage.setItem('LoginId', response.loginId);
       });
-    });
-    const getPostsUserId = localStorage.getItem("LoginId");
-    console.log("user id: ", getPostsUserId);
-    const getPostsData = {
-      "loginId": getPostsUserId,
-    }
-    this.backendService.getAllPosts(getPostsData).subscribe((response) => {
-      console.log('all posts: ', response);
     });
   }
 }

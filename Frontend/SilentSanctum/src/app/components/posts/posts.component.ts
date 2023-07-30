@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 
 @Component({
   selector: 'app-posts',
@@ -6,6 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./posts.component.css'],
 })
 export class PostsComponent {
+  constructor(public backendService: BackendConnectionService) {}
+  allPosts: any = null;
+
   calculateRemainingTime(created: any) {
     const createdTimestamp = Date.parse(created);
     const now = Date.now();
@@ -26,5 +30,25 @@ export class PostsComponent {
       hours: hoursRemaining,
       minutes: minutesRemaining,
     };
+  }
+
+  displayRemainingTime(timeString: any) {
+    let rem = this.calculateRemainingTime(timeString);
+    if (rem.hours == 0) {
+      return String(rem.hours) + ' hrs';
+    } else {
+      return String(rem.minutes) + ' mins';
+    }
+  }
+  ngOnInit() {
+    const getPostsUserId = localStorage.getItem('LoginId');
+    console.log('user id: ', getPostsUserId);
+    const getPostsData = {
+      loginId: getPostsUserId,
+    };
+    this.backendService.getAllPosts(getPostsData).subscribe((response) => {
+      this.allPosts = response;
+      console.log('all posts: ', response);
+    });
   }
 }

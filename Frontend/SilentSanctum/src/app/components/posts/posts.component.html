@@ -2,35 +2,37 @@
     <div class="new-post-btn" routerLink="/new_post">New Post</div>
 </div>
 <div class="posts-main">
-    <div class="post-item">
-        <div>
-            <div class="post-title">How can this be done?</div>
-            <div class="post-topic">
-                <div class="post-topic-item">Tech</div>
-            </div>
-        </div>
-        <div class="post-details">
+    <ng-container *ngFor="let post of allPosts">
+        <div class="post-item">
             <div>
-                <div class="post-time"><span>9 hrs&nbsp;</span> remaining</div>
-                <div class="post-author">posted by&nbsp;<span>aasjenie</span></div>
-            </div>
-            <div>
-                <div class="post-reactions">
-                    <div class="post-reaction-item post-reaction-active">
-                        <img src="../../../assets/like.png" alt="like">
-                        12
-                    </div>
-                    <div class="post-reaction-item">
-                        <img src="../../../assets/clap.png" alt="clap">
-                        10
-                    </div>
-                    <div class="post-reaction-item">
-                        <img src="../../../assets/laugh.png" alt="laugh">
-                        1
-                    </div>
+                <div class="post-title">{{post.content}}</div>
+                <div class="post-topic" *ngIf="post.topic">
+                    <div class="post-topic-item">{{post.topic}}</div>
                 </div>
-                <div class="comments-div" routerLink="/comments">Comments</div>
+            </div>
+            <div class="post-details">
+                <div>
+                    <div class="post-time"><span>{{displayRemainingTime(post.created)}}&nbsp;</span> remaining</div>
+                    <div class="post-author">posted by&nbsp;<span>{{post.author| slice:0:6}}</span></div>
+                </div>
+                <div>
+                    <div class="post-reactions">
+                        <div class="post-reaction-item post-reaction-active">
+                            <img src="../../../assets/like.png" alt="like">
+                            12
+                        </div>
+                        <div class="post-reaction-item">
+                            <img src="../../../assets/clap.png" alt="clap">
+                            10
+                        </div>
+                        <div class="post-reaction-item">
+                            <img src="../../../assets/laugh.png" alt="laugh">
+                            1
+                        </div>
+                    </div>
+                    <div class="comments-div" routerLink="/comments">Comments</div>
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>

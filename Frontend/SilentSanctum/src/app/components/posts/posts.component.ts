@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
+import { CommentsService } from 'src/app/services/comments.service';
 import { PostsService } from 'src/app/services/posts.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { PostsService } from 'src/app/services/posts.service';
 export class PostsComponent {
   constructor(
     public backendService: BackendConnectionService,
-    private postService: PostsService
+    private postService: PostsService,
+    private commentsService: CommentsService
   ) {}
   allPosts: any = null;
 
@@ -44,6 +46,11 @@ export class PostsComponent {
       return String(rem.minutes) + ' mins';
     }
   }
+
+  getComments(commentId: any) {
+    this.commentsService.getComments(commentId);
+  }
+
   ngOnInit() {
     this.postService.changePosts();
     this.postService.postsFetched.subscribe((posts) => (this.allPosts = posts));

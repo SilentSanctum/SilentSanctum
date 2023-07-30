@@ -26,8 +26,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="child-comment" *ngIf="comment.children">
-                    <ng-container *ngFor="let child in comment.children">
+                <div class="child-comment">
+                    <div *ngFor="let child of comment.children">
                         <div class="comment">
                             <div class="comment-author">{{child.author | slice:0:6}}
                                 <!-- <div class="op-card">OP</div> -->
@@ -50,8 +50,8 @@
                                 </div>
                             </div>
                         </div>
-                    </ng-container>
-                    <div class="child-comment">
+                        <div class="child-comment">
+                        </div>
                     </div>
                 </div>
             </div>

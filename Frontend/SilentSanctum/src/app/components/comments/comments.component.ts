@@ -7,11 +7,11 @@ import { CommentsService } from 'src/app/services/comments.service';
   styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent {
-  constructor(private commentsService: CommentsService) {}
-  allComments: any = null;
-  ngOnInit() {
+  constructor(private commentsService: CommentsService) {
     this.commentsService.commentsFetched.subscribe((comments) => {
       this.allComments = comments;
+      console.log('Comments fetched: ', this.allComments);
     });
   }
+  allComments: any = [];
 }

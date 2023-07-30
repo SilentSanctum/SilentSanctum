@@ -46,7 +46,6 @@ const postSchema = new mongoose.Schema({
     created: Date,
     author: String,
     content: String,
-    reactions: { type: Array, required: false },
 })
 postSchema.path('created').index({ expires: 86400 });
 const Post = mongoose.model('Post', postSchema);
@@ -56,11 +55,20 @@ const commentSchema = new mongoose.Schema({
     created: Date,
     author: String,
     content: String,
-    reactions: { type: Array, required: false },
 })
 commentSchema.path('created').index({ expires: 86400 });
 
 const Comment = mongoose.model('Comment', commentSchema);
+
+const reactionSchema = new mongoose.Schema({
+    username: String,
+    contentId: { type: mongoose.Schema.ObjectId, required: false },
+    reactionType: String,
+    created: Date
+})
+reactionSchema.path('created').index({ expires: 86400 });
+
+const Reaction = mongoose.model('Reaction', reactionSchema);
 
 
 app.post("/login", (req, res) => {
@@ -227,6 +235,60 @@ app.post("/new_comment", (req, res) => {
         });
         newComment.save().then((doc) => {
             return res.send(doc);
+        })
+    }).catch((e) => {
+        return res.status(500).send(e);
+    });
+})
+
+app.post("/add_reaction", (req, res) => {
+    let default_reaction = "Like";
+    let loginId = req.body.loginId;
+    let contentId = req.body.contentId;
+    let username = req.body.username;
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((user) => {
+        if (!user) {
+            return res.status(401).send("You must log in first");
+        }
+        let newReaction = new Reaction({
+            username: username,
+            contentId: contentId,
+            reactionType: default_reaction,
+            created: Date.now()
+        })
+        newReaction.save().then((docs) => {
+            return res.send(docs);
+        })
+    }).catch((e) => {
+        return res.status(500).send(e);
+    });
+})
+
+app.post("/remove_reaction", (req, res) => {
+    let loginId = req.body.loginId;
+    let contentId = req.body.contentId;
+    let username = req.body.username;
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((user) => {
+        if (!user) {
+            return res.status(401).send("You must log in first");
+        }
+        Reaction.deleteOne({ username: username, contentId: contentId }).exec().then((docs) => {
+            return res.send(docs);
+        })
+    }).catch((e) => {
+        return res.status(500).send(e);
+    });
+})
+
+app.post("/reactions", (req, res) => {
+    let loginId = req.body.loginId;
+    let contentId = req.body.contentId;
+    LoggedInUser.findOne({ "uniqueKey": loginId }).exec().then((user) => {
+        if (!user) {
+            return res.status(401).send("You must log in first");
+        }
+        Reaction.find({ contentId: contentId }).exec().then((docs) => {
+            return res.send(docs);
         })
     }).catch((e) => {
         return res.status(500).send(e);

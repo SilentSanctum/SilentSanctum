@@ -10,7 +10,8 @@
     </div>
     <div *ngIf="newCommentBtnClicked" class="main-new-comment">
         <form [formGroup]="newCommentForm" (ngSubmit)="addComment()">
-            <input type="text" class="new-comment-input" formControlName="commentContent" placeholder="Add your opininons here">
+            <input type="text" class="new-comment-input" formControlName="commentContent"
+                placeholder="Add your opininons here">
             <div class="new-comment-submit">
                 <button class="new-comment-submit-btn" type="submit" value="submit">Done</button>
             </div>
@@ -30,14 +31,6 @@
                                 <img src="../../../assets/like.png" alt="like">
                                 12
                             </div>
-                            <div class="post-reaction-item">
-                                <img src="../../../assets/clap.png" alt="clap">
-                                10
-                            </div>
-                            <div class="post-reaction-item">
-                                <img src="../../../assets/laugh.png" alt="laugh">
-                                1
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,14 +46,6 @@
                                     <div class="post-reaction-item post-reaction-active">
                                         <img src="../../../assets/like.png" alt="like">
                                         12
-                                    </div>
-                                    <div class="post-reaction-item">
-                                        <img src="../../../assets/clap.png" alt="clap">
-                                        10
-                                    </div>
-                                    <div class="post-reaction-item">
-                                        <img src="../../../assets/laugh.png" alt="laugh">
-                                        1
                                     </div>
                                 </div>
                             </div>

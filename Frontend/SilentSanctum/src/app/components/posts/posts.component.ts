@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { PostsService } from 'src/app/services/posts.service';
+import { ReactionsService } from 'src/app/services/reactions.service';
 
 @Component({
   selector: 'app-posts',
@@ -13,7 +14,8 @@ export class PostsComponent implements OnInit, OnDestroy {
     public backendService: BackendConnectionService,
     private postService: PostsService,
     private commentsService: CommentsService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private reactionsService: ReactionsService
   ) {}
   allPosts: any = null;
   private updateInterval: any;
@@ -78,10 +80,56 @@ export class PostsComponent implements OnInit, OnDestroy {
     }
   }
 
+  allReactions: any = {};
+  getAllReactions() {
+    const getPostsUserId = localStorage.getItem('LoginId');
+    console.log('user id: ', getPostsUserId);
+    for (let post of this.allPosts) {
+      let getPostsReactionsData: any = {
+        loginId: getPostsUserId,
+        contentId: post._id,
+      };
+      this.backendService
+        .getReactions(getPostsReactionsData)
+        .subscribe((item) => {
+          this.allReactions[post._id] = item;
+        });
+    }
+  }
+
+  toggleReaction(postId: any) {
+    const getPostsUserId = localStorage.getItem('LoginId');
+    const getUserName = localStorage.getItem('username');
+    console.log('user id: ', getPostsUserId);
+    let getPostsReactionsData: any = {
+      loginId: getPostsUserId,
+      contentId: postId,
+      username: getUserName,
+    };
+    if (this.allReactions[postId]) {
+      this.allReactions[postId].forEach((reaction: any) => {
+        if (reaction.username == getUserName) {
+          this.backendService
+            .removeReaction(getPostsReactionsData)
+            .subscribe((item) => {
+              this.getAllReactions();
+              return;
+            });
+        }
+      });
+    } else {
+      this.backendService
+        .addReaction(getPostsReactionsData)
+        .subscribe((item) => {
+          this.getAllReactions();
+        });
+    }
+  }
   ngOnInit() {
     this.postService.changePosts();
     this.postService.postsFetched.subscribe((posts) => (this.allPosts = posts));
     this.updateRemainingTime();
+    this.getAllReactions();
     this.updateInterval = setInterval(() => {
       this.updateRemainingTime(); // Update every second (adjust as needed)
     }, 1000);

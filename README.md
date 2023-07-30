@@ -32,15 +32,20 @@ DB_PASSWORD=<your mongodb password>
 ```
 
 #### Run Angular app
-In Frontend/SilentSanctum folder, open terminal and type:
+
 _Make sure you have latest Angular core and CLI installed_
+
+In Frontend/SilentSanctum folder, open terminal and type:
+
 ```bash
 ng serve -o
 ```
 
 #### Run Node.js server
-In Backend folder, open terminal and type:
 _Make sure you serve in port 3000._
+
+In Backend folder, open terminal and type:
+
 ```bash
 node server.js
 ```

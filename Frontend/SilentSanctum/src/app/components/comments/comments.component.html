@@ -29,7 +29,7 @@
                         <div class="post-reactions">
                             <div class="post-reaction-item post-reaction-active">
                                 <img src="../../../assets/like.png" alt="like">
-                                12
+                                0
                             </div>
                             <div class="post-reaction-item">
                                 <img src="../../../assets/clap.png" alt="like">
@@ -74,14 +74,15 @@
             <div class="reply-btn-container" *ngIf="!replyBtnStates[comment._id]">
                 <button class="reply-btn" (click)="openReplyContainer(comment._id)">Reply</button>
             </div>
-            <div *ngIf="replyBtnStates[comment._id]"  class="main-new-comment">
+            <div *ngIf="replyBtnStates[comment._id]" class="main-new-comment">
                 <!-- <div *ngIf="newCommentBtnClicked"> -->
-                    <form [formGroup]="replyForm" (ngSubmit)="addReply(comment._id)">
-                        <input type="text" class="new-reply-input" formControlName="commentContent" placeholder="Add your response here">
-                        <div class="new-comment-submit">
-                            <button class="new-reply-submit-btn" type="submit" value="submit">Done</button>
-                        </div>
-                    </form>
+                <form [formGroup]="replyForm" (ngSubmit)="addReply(comment._id)">
+                    <input type="text" class="new-reply-input" formControlName="commentContent"
+                        placeholder="Add your response here">
+                    <div class="new-comment-submit">
+                        <button class="new-reply-submit-btn" type="submit" value="submit">Done</button>
+                    </div>
+                </form>
                 <!-- </div> -->
             </div>
         </ng-container>

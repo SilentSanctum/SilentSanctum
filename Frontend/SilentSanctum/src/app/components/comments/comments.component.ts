@@ -22,6 +22,7 @@ export class CommentsComponent implements OnInit {
     this.commentsService.commentsFetched.subscribe((comments) => {
       this.allComments = comments;
       console.log('Comments fetched: ', this.allComments);
+      console.log("comment id: ", this.allComments[0]._id);
     });
   }
   allComments: any = [];
@@ -52,6 +53,7 @@ export class CommentsComponent implements OnInit {
     console.log('comment data: ', data);
     this.backendService.addComment(data).subscribe((response) => {
       console.log('comment response:', response);
+      // console.log("comment id: ", response.id);
       this.commentsService.getComments(this.postId);
       this.router.navigateByUrl(`/comments/${this.postId}`);
       this.newCommentBtnClicked = false;
@@ -59,5 +61,9 @@ export class CommentsComponent implements OnInit {
         this.allComments = comments;
       });
     });
+  }
+  
+  openReplyContainer(commentId: any) {
+
   }
 }

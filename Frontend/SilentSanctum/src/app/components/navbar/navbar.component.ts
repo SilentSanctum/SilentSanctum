@@ -84,7 +84,9 @@ export class NavbarComponent implements OnInit {
         setInterval(() => {
           this.updateRemainingTime(response.created); // Update every second (adjust as needed)
         }, 1000);
+        // this.cdRef.detectChanges();
       });
+      this.cdRef.detectChanges();
       this.profileJson = profile;
       this.userProfilePic = profile?.picture;
       this.userNickName = profile?.nickname;

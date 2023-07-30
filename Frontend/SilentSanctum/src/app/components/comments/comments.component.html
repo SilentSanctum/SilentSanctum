@@ -1,7 +1,18 @@
 <div class="main-comment">
-    <div class="comment-nav">
-        <div class="back-button" routerLink="/posts"><img src="../../../assets/back.png" alt=""></div>
-        <div class="comment-title">Comments</div>
+    <div class="comment-nav-container">
+        <div class="comment-nav">
+            <div class="back-button" routerLink="/posts"><img src="../../../assets/back.png" alt=""></div>
+            <div class="comment-title">Comments</div>
+        </div>
+        <div *ngIf="!newCommentBtnClicked">
+            <div class="new-comment-btn" (click)="openCommentContianer()">New Comment</div>
+        </div>
+    </div>
+    <div *ngIf="newCommentBtnClicked" class="main-new-comment">
+        <input type="text" class="new-comment-input" formControlName="content" placeholder="Add your opininons here">
+        <div class="new-comment-submit">
+            <button class="new-comment-submit-btn" type="submit" value="submit" (click)="addComment()">Done</button>
+        </div>
     </div>
     <div class="comment-section">
         <ng-container *ngFor="let comment of allComments">

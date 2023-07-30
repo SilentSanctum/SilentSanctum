@@ -14,4 +14,13 @@ export class CommentsComponent {
     });
   }
   allComments: any = [];
+  newCommentBtnClicked = false;
+
+  openCommentContianer() {
+    this.newCommentBtnClicked = true; //update to false in the comment submit button
+  }
+
+  addComment() {
+    this.newCommentBtnClicked = false;
+  }
 }

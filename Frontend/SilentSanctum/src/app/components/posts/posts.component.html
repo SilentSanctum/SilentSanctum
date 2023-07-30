@@ -30,8 +30,7 @@
                             1
                         </div>
                     </div>
-                    <div class="comments-div" routerLink="/comments" (click)="getComments(post._id, post.author)">
-                        Comments</div>
+                    <div class="comments-div" [routerLink]="['/comments', post._id]" (click)="getComments(post._id, post.author)">Comments</div>
                 </div>
             </div>
         </div>

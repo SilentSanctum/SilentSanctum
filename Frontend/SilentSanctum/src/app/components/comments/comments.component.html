@@ -9,10 +9,12 @@
         </div>
     </div>
     <div *ngIf="newCommentBtnClicked" class="main-new-comment">
-        <input type="text" class="new-comment-input" formControlName="content" placeholder="Add your opininons here">
-        <div class="new-comment-submit">
-            <button class="new-comment-submit-btn" type="submit" value="submit" (click)="addComment()">Done</button>
-        </div>
+        <form [formGroup]="newCommentForm" (ngSubmit)="addComment()">
+            <input type="text" class="new-comment-input" formControlName="commentContent" placeholder="Add your opininons here">
+            <div class="new-comment-submit">
+                <button class="new-comment-submit-btn" type="submit" value="submit">Done</button>
+            </div>
+        </form>
     </div>
     <div class="comment-section">
         <ng-container *ngFor="let comment of allComments">

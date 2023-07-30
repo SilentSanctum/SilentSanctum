@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { AuthService, LocalStorageCache } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
     public backendService: BackendConnectionService,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   logoutUser() {
@@ -71,6 +72,7 @@ export class NavbarComponent implements OnInit {
       this.remainingTimeValue = remainingTimeObject.seconds;
       this.remainingTimeParticular = 'secs';
     }
+    this.cdRef.detectChanges();
   }
 
   ngOnInit(): void {

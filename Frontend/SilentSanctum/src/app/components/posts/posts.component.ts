@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { CommentsService } from 'src/app/services/comments.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -12,7 +12,8 @@ export class PostsComponent implements OnInit, OnDestroy {
   constructor(
     public backendService: BackendConnectionService,
     private postService: PostsService,
-    private commentsService: CommentsService
+    private commentsService: CommentsService,
+    private cdRef: ChangeDetectorRef
   ) {}
   allPosts: any = null;
   private updateInterval: any;
@@ -64,6 +65,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       const remainingTime = this.calculateRemainingTime(post.createdAt);
       post.remainingTime = this.displayRemainingTime(remainingTime);
     });
+    this.cdRef.detectChanges();
   }
 
   getComments(commentId: any, postAuthor: any) {

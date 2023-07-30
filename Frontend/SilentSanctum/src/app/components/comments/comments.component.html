@@ -69,9 +69,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="reply-btn-container">
-                    <button class="reply-btn" (click)="openReplyContainer(comment._id)">Reply</button>
-                </div>
+            </div>
+            <div class="reply-btn-container" *ngIf="!replyBtnStates[comment._id]">
+                <button class="reply-btn" (click)="openReplyContainer(comment._id)">Reply</button>
+            </div>
+            <div *ngIf="replyBtnStates[comment._id]"  class="main-new-comment">
+                <!-- <div *ngIf="newCommentBtnClicked"> -->
+                    <form [formGroup]="replyForm" (ngSubmit)="addReply(comment._id)">
+                        <input type="text" class="new-reply-input" formControlName="commentContent" placeholder="Add your response here">
+                        <div class="new-comment-submit">
+                            <button class="new-reply-submit-btn" type="submit" value="submit">Done</button>
+                        </div>
+                    </form>
+                <!-- </div> -->
             </div>
         </ng-container>
     </div>

@@ -11,6 +11,7 @@ import { PostsService } from 'src/app/services/posts.service';
   styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent implements OnInit {
+  replyBtnStates: { [commentId: string]: boolean } = {};
   constructor(
     private commentsService: CommentsService,
     private route: ActivatedRoute,
@@ -22,13 +23,18 @@ export class CommentsComponent implements OnInit {
     this.commentsService.commentsFetched.subscribe((comments) => {
       this.allComments = comments;
       console.log('Comments fetched: ', this.allComments);
-      console.log("comment id: ", this.allComments[0]._id);
+      this.allComments.forEach((comment: any) => {
+        this.replyBtnStates[comment._id] = false;
+      });
+      // console.log("comment id: ", this.allComments[0]._id);
     });
   }
   allComments: any = [];
   postId: any;
   newCommentBtnClicked = false;
+  replyBtnClicked = false;
   newCommentForm!: FormGroup;
+  replyForm!: FormGroup;
 
   openCommentContainer() {
     this.newCommentBtnClicked = true; //update to false in the comment submit button
@@ -46,6 +52,12 @@ export class CommentsComponent implements OnInit {
       parentId: this.postId,
       commentContent: ['', Validators.required],
     });
+
+    this.replyForm = this.fb.group({
+      loginId: localStorage.getItem('LoginId'),
+      parentId: this.postId,
+      commentContent: ['', Validators.required],
+    })
   }
 
   addComment() {
@@ -62,8 +74,30 @@ export class CommentsComponent implements OnInit {
       });
     });
   }
-  
-  openReplyContainer(commentId: any) {
 
+  openReplyContainer(commentId: any) {
+    // this.replyForm.reset();
+    this.replyForm.get('commentContent')?.setValue(''); 
+    console.log("commment id: ", commentId);
+    this.replyBtnStates[commentId] = true;
+  }
+
+  addReply(parentCommentId: any) {
+    const data = {
+      loginId: this.replyForm.get('loginId')?.value,
+      parentId: parentCommentId,
+      commentContent: this.replyForm.get('commentContent')?.value
+    };
+    // console.log("reply data:", data);
+    this.backendService.addComment(data).subscribe((response) => {
+      console.log("reply response: ", response);
+      this.commentsService.getComments(this.postId);
+      this.router.navigateByUrl(`/comments/${this.postId}`);
+      // this.newCommentBtnClicked = false;
+      this.commentsService.commentsFetched.subscribe((comments) => {
+        this.allComments = comments;
+      });
+    })
+    this.replyBtnStates[parentCommentId] = false;
   }
 }

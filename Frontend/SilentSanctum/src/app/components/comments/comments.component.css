@@ -187,13 +187,45 @@
     padding:0.2em 0.4em;
     color:white;
 }
+.new-reply-input{
+    margin:0.5em;
+    margin-top: 0;
+    border: 0.5px solid var(--light-grey);
+    width:420px;
+    /* height: 50px; */
+    background-color: var(--black);
+    border-radius: 8px;
+    font-size:1em;
+    padding:0.2em 0.4em;
+    color:white;
+}
+.new-reply-submit-btn{
+    background-color: var(--white);
+    padding:0.4em 1em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    width: fit-content;
+    color:var(--black);
+    margin:1em;
+    margin-bottom: 0;
+    margin-top: 0;
+    border-radius: 12px;
+    opacity: 70%;
+    cursor: pointer;
+    margin-right: 55px;
+}
+
+.new-reply-submit-btn:hover{
+    opacity: 100%;
+}
 .reply-btn{
     background-color: transparent;
     color: white;
     border: none;
     /* margin-left:2em; */
+    /* margin-right: 30px; */
 }
 .reply-btn-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }

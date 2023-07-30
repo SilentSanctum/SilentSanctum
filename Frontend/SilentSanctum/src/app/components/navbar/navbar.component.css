@@ -22,7 +22,7 @@ nav{
 .profile-card{
     display: flex;
     border:0px solid var(--light-grey);
-    min-width: 250px;
+    min-width: 270px;
     min-height:60px;
     background-color: var(--black);
     border-radius: 50px;
@@ -51,6 +51,7 @@ nav{
     flex-direction: column;
     margin: auto;
     margin-left:1em;
+    margin-right: 0.2em;
     height: fit-content;
     /* align-self: space-between; */
 }
@@ -74,4 +75,30 @@ nav{
 .logout-button:hover{
     color:white;
     text-decoration: underline;
+}
+
+.time-remaining{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-left:0.4em;
+    padding-left:0.6em;
+    height: auto;
+    border-left: 0.5px solid var(--light-grey);
+}
+
+.time-value{
+    margin: 0;
+    color:white;
+    padding: 0;
+}
+
+.time-particular{
+    margin: 0;
+    letter-spacing: -0.03em;
+    font-size:0.7em;
+    font-weight: 500;
+    margin-top: 0;
 }

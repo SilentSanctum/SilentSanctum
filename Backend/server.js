@@ -107,9 +107,12 @@ app.post("/login", (req, res) => {
                     loggedUser.save().then(() => {
                         let loggedResponse = {
                             "username": targetUsername,
-                            "loginId": loginId
+                            "loginId": loginId,
                         }
-                        return res.send(loggedResponse);
+                        User.findOne({ "username": targetUsername }).exec().then((docs) => {
+                            loggedResponse["created"] = docs.created;
+                            return res.send(loggedResponse);
+                        })
                     }).catch((e) => {
                         return res.status(500).send(e);
                     })
@@ -118,7 +121,10 @@ app.post("/login", (req, res) => {
                     //If Logged in user is present
                     console.log("Logged in user is present");
                     let result = { "username": docs.username, "loginId": docs.uniqueKey }
-                    return res.send(result);
+                    User.findOne({ "username": docs.username }).exec().then((docs) => {
+                        result["created"] = docs.created;
+                        return res.send(result);
+                    })
                 }
             })
         }).catch(e => { return res.status(500).send(e) });

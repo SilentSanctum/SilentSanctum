@@ -70,6 +70,12 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.commentsService.getComments(commentId, postAuthor);
   }
 
+  ngOnDestroy() {
+    if (this.updateInterval) {
+      clearInterval(this.updateInterval); // Clear the interval when the component is destroyed
+    }
+  }
+
   ngOnInit() {
     this.postService.changePosts();
     this.postService.postsFetched.subscribe((posts) => (this.allPosts = posts));
@@ -77,11 +83,5 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.updateInterval = setInterval(() => {
       this.updateRemainingTime(); // Update every second (adjust as needed)
     }, 1000);
-  }
-
-  ngOnDestroy() {
-    if (this.updateInterval) {
-      clearInterval(this.updateInterval); // Clear the interval when the component is destroyed
-    }
   }
 }

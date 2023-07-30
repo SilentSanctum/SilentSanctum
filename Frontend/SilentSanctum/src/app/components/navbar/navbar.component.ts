@@ -14,6 +14,9 @@ export class NavbarComponent implements OnInit {
   userProfilePic: any;
   userNickName: any;
   userToken: any;
+  created: any;
+  remainingTimeValue: any;
+  remainingTimeParticular: any;
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
@@ -21,24 +24,68 @@ export class NavbarComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.auth.user$.subscribe((profile) => {
-      // console.log("profile from subs login:", profile);
-      this.backendService.login(profile).subscribe((response) => {
-        // console.log('response: ', response);
-        this.userToken = response.username;
-      });
-      this.profileJson = profile;
-      this.userProfilePic = profile?.picture;
-      this.userNickName = profile?.nickname;
-    });
-  }
-
   logoutUser() {
     this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
     let logoutParams = {
       loginId: localStorage.getItem('LoginId'),
     };
     this.backendService.logout(logoutParams);
+  }
+
+  allPosts: any = null;
+
+  calculateRemainingTime(created: any) {
+    const createdTimestamp = Date.parse(created);
+    const now = Date.now();
+    const expirationTimestamp = createdTimestamp + 24 * 60 * 60 * 1000;
+    if (now >= expirationTimestamp) {
+      return {
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+      };
+    }
+
+    const timeRemaining = expirationTimestamp - now;
+    const hoursRemaining = Math.floor(timeRemaining / (60 * 60 * 1000));
+    const minutesRemaining = Math.floor(
+      (timeRemaining % (60 * 60 * 1000)) / (60 * 1000)
+    );
+    const secondsRemaining = Math.floor((timeRemaining % (60 * 1000)) / 1000);
+    return {
+      hours: hoursRemaining,
+      minutes: minutesRemaining,
+      seconds: secondsRemaining,
+    };
+  }
+
+  updateRemainingTime(createdTime: any) {
+    const remainingTimeObject = this.calculateRemainingTime(createdTime);
+    if (remainingTimeObject.hours > 0) {
+      this.remainingTimeValue = remainingTimeObject.hours;
+      this.remainingTimeParticular = 'hrs';
+    } else if (remainingTimeObject.minutes > 0) {
+      this.remainingTimeValue = remainingTimeObject.minutes;
+      this.remainingTimeParticular = 'mins';
+    } else {
+      this.remainingTimeValue = remainingTimeObject.seconds;
+      this.remainingTimeParticular = 'secs';
+    }
+  }
+
+  ngOnInit(): void {
+    this.auth.user$.subscribe((profile) => {
+      // console.log("profile from subs login:", profile);
+      this.backendService.login(profile).subscribe((response) => {
+        this.userToken = response.username;
+        this.created = response.created;
+        setInterval(() => {
+          this.updateRemainingTime(response.created); // Update every second (adjust as needed)
+        }, 1000);
+      });
+      this.profileJson = profile;
+      this.userProfilePic = profile?.picture;
+      this.userNickName = profile?.nickname;
+    });
   }
 }

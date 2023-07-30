@@ -9,7 +9,7 @@ export class CommentsService {
   constructor(private backendService: BackendConnectionService) {}
   private commentsSource = new BehaviorSubject([]);
   commentsFetched = this.commentsSource.asObservable();
-  getComments(parentIdReq: any, authorId: any) {
+  getComments(parentIdReq: any, authorId: any = null) {
     try {
       if (parentIdReq) {
         const getPostsUserId = localStorage.getItem('LoginId');

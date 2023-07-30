@@ -17,7 +17,7 @@ export class CommentsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public backendService: BackendConnectionService,
-    private postService: PostsService,
+    private postService: PostsService
   ) {
     this.commentsService.commentsFetched.subscribe((comments) => {
       this.allComments = comments;
@@ -41,7 +41,7 @@ export class CommentsComponent implements OnInit {
     console.log('post id: ', this.postId);
 
     this.newCommentForm = this.fb.group({
-      loginId: localStorage.getItem("LoginId"),
+      loginId: localStorage.getItem('LoginId'),
       parentId: this.postId,
       commentContent: ['', Validators.required],
     });
@@ -49,16 +49,15 @@ export class CommentsComponent implements OnInit {
 
   addComment() {
     const data = this.newCommentForm.value;
-    console.log("comment data: ", data); 
+    console.log('comment data: ', data);
     this.backendService.addComment(data).subscribe((response) => {
-      console.log("comment response:", response);
+      console.log('comment response:', response);
+      this.commentsService.getComments(this.postId);
+      this.router.navigateByUrl(`/comments/${this.postId}`);
+      this.newCommentBtnClicked = false;
+      this.commentsService.commentsFetched.subscribe((comments) => {
+        this.allComments = comments;
+      });
     });
-    this.commentsService.commentsFetched.subscribe((comments) => {
-      this.allComments = comments;
-      // console.log('Comments fetched: ', this.allComments);
-    });
-    this.router.navigateByUrl(`/comments/${this.postId}`);
-    this.newCommentBtnClicked = false;
   }
-
 }

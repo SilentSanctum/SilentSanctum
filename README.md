@@ -42,7 +42,7 @@ We welcome contributions to improve Silent Sanctum and make it even better. To c
 Silent Sanctum is open-source software licensed under the MIT License.
 
 ### Acknowledgements
-We would like to express our gratitude to all contributors and **Major League Hacking ** community for their support, making this project possible and promoting a respectful and inclusive online community.
+We would like to express our gratitude to all contributors and **Major League Hacking** community for their support, making this project possible and promoting a respectful and inclusive online community.
 
 
 

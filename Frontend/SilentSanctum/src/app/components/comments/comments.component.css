@@ -187,3 +187,13 @@
     padding:0.2em 0.4em;
     color:white;
 }
+.reply-btn{
+    background-color: transparent;
+    color: white;
+    border: none;
+    /* margin-left:2em; */
+}
+.reply-btn-container{
+    display: flex;
+    justify-content: flex-end;
+}

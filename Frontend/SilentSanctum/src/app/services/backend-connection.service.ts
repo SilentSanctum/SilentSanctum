@@ -32,6 +32,21 @@ export class BackendConnectionService {
     return this.http.post<any>(`${this.baseUrl}/comments`, body);
   }
 
+  getReactions(data: any) {
+    const body = data;
+    return this.http.post<any>(`${this.baseUrl}/reactions`, body);
+  }
+
+  addReaction(data: any) {
+    const body = data;
+    return this.http.post<any>(`${this.baseUrl}/add_reaction`, body);
+  }
+
+  removeReaction(data: any) {
+    const body = data;
+    return this.http.post<any>(`${this.baseUrl}/remove_reaction`, body);
+  }
+
   addComment(data: any) {
     const body = data;
     return this.http.post<any>(`${this.baseUrl}/new_comment`, body);

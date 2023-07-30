@@ -17,20 +17,13 @@
                 </div>
                 <div>
                     <div class="post-reactions">
-                        <div class="post-reaction-item post-reaction-active">
+                        <div class="post-reaction-item">
                             <img src="../../../assets/like.png" alt="like">
                             12
                         </div>
-                        <div class="post-reaction-item">
-                            <img src="../../../assets/clap.png" alt="clap">
-                            10
-                        </div>
-                        <div class="post-reaction-item">
-                            <img src="../../../assets/laugh.png" alt="laugh">
-                            1
-                        </div>
                     </div>
-                    <div class="comments-div" [routerLink]="['/comments', post._id]" (click)="getComments(post._id, post.author)">Comments</div>
+                    <div class="comments-div" [routerLink]="['/comments', post._id]"
+                        (click)="getComments(post._id, post.author)">Comments</div>
                 </div>
             </div>
         </div>

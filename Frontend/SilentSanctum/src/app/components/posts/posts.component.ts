@@ -34,7 +34,7 @@ export class PostsComponent {
 
   displayRemainingTime(timeString: any) {
     let rem = this.calculateRemainingTime(timeString);
-    if (rem.hours == 0) {
+    if (rem.hours > 0) {
       return String(rem.hours) + ' hrs';
     } else {
       return String(rem.minutes) + ' mins';

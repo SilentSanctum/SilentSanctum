@@ -8,7 +8,7 @@ Silent Sanctum is an innovative anonymous social media application that empowers
 - Time-Limited Posts: Posts created by users are visible on the platform for one day, ensuring a constantly evolving and dynamic community.
 - Content-Centric Engagement: User interactions are solely driven by the quality of content shared, encouraging meaningful discussions and creative expression.
 - Secure Authentication: We use Auth0 for robust and secure user authentication, safeguarding privacy and ensuring a safe user experience.
-Auto-Deletion of Posts: We leverage MongoDB's TTL index to automatically delete posts after their 24-hour lifespan, keeping the platform fresh and clutter-free.
+- Auto-Deletion of Posts: We leverage MongoDB's TTL index to automatically delete posts after their 24-hour lifespan, keeping the platform fresh and clutter-free.
 
 ### Getting Started
 To get started with Silent Sanctum, follow these steps:

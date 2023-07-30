@@ -13,8 +13,7 @@
             <div class="profile-card-content">
                 <div class="profile-name">{{userNickName}}</div>
                 <div class="profile-id">{{userToken}}</div>
-                <div class="logout-button"
-                    (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })" routerLink="/login">
+                <div class="logout-button" (click)="logoutUser()" routerLink="/login">
                     Log out
                 </div>
             </div>

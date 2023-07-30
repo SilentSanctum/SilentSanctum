@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, LocalStorageCache } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { Router } from '@angular/router';
 
@@ -34,5 +34,11 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  logoutUser() {}
+  logoutUser() {
+    this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
+    let logoutParams = {
+      loginId: localStorage.getItem('LoginId'),
+    };
+    this.backendService.logout(logoutParams);
+  }
 }

@@ -38,7 +38,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     return {
       hours: hoursRemaining,
       minutes: minutesRemaining,
-      seconds: secondsRemaining,  
+      seconds: secondsRemaining,
     };
   }
 
@@ -53,8 +53,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       return `${rem.hours} hrs ${rem.minutes} mins ${rem.seconds} secs`;
     } else if (rem.minutes > 0) {
       return `${rem.minutes} mins ${rem.seconds} secs`;
-    } 
-    else {
+    } else {
       return `${rem.seconds} secs`;
     }
   }
@@ -67,8 +66,8 @@ export class PostsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getComments(commentId: any) {
-    this.commentsService.getComments(commentId);
+  getComments(commentId: any, postAuthor: any) {
+    this.commentsService.getComments(commentId, postAuthor);
   }
 
   ngOnInit() {

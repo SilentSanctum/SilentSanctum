@@ -20,7 +20,9 @@
         <ng-container *ngFor="let comment of allComments">
             <div class="comment-item">
                 <div class="comment">
-                    <div class="comment-author">{{comment.author | slice:0:6}}</div>
+                    <div class="comment-author">{{comment.author | slice:0:6}}
+                        <div class="op-card" *ngIf="comment.isOP">OP</div>
+                    </div>
                     <div class="comment-content">{{comment.content}}</div>
                     <div>
                         <div class="post-reactions">
@@ -43,7 +45,7 @@
                     <div *ngFor="let child of comment.children">
                         <div class="comment">
                             <div class="comment-author">{{child.author | slice:0:6}}
-                                <!-- <div class="op-card">OP</div> -->
+                                <div class="op-card" *ngIf="child.isOP">OP</div>
                             </div>
                             <div class="comment-content">{{child.content}}</div>
                             <div>

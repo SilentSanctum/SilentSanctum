@@ -29,6 +29,7 @@ export class BackendConnectionService {
   }
 
   addComment(data: any) {
-    return this.http.post<any>(`${this.baseUrl}/new_comment`, data);
+    const body = data;
+    return this.http.post<any>(`${this.baseUrl}/new_comment`, body);
   }
 }

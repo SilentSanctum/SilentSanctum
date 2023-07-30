@@ -14,7 +14,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   { path: 'posts', component: PostsComponent },
-  { path: 'comments', component: CommentsComponent },
+  { path: 'comments/:postId', component: CommentsComponent },
   { path: 'new_post', component: NewPostComponent },
 ];
 

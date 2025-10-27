@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { AuthService, LocalStorageCache } from '@auth0/auth0-angular';
+import { AuthService } from '@auth0/auth0-angular';
 import { BackendConnectionService } from 'src/app/services/backend-connection.service';
 import { Router } from '@angular/router';
 
@@ -17,6 +17,7 @@ export class NavbarComponent implements OnInit {
   created: any;
   remainingTimeValue: any;
   remainingTimeParticular: any;
+
   constructor(
     @Inject(DOCUMENT) public document: Document,
     public auth: AuthService,
@@ -26,25 +27,31 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   logoutUser() {
-    this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
-    let logoutParams = {
+    // ✅ Déconnecte Auth0 proprement et redirige vers /login
+    this.auth.logout({
+      logoutParams: { returnTo: window.location.origin + '/login' },
+    });
+
+    // ✅ Appelle ton backend pour nettoyer la session serveur
+    const logoutParams = {
       loginId: localStorage.getItem('LoginId'),
     };
     this.backendService.logout(logoutParams);
-  }
 
-  allPosts: any = null;
+    // ✅ Nettoie aussi côté client
+    localStorage.removeItem('LoginId');
+    this.userToken = null;
+    this.userNickName = null;
+    this.userProfilePic = null;
+  }
 
   calculateRemainingTime(created: any) {
     const createdTimestamp = Date.parse(created);
     const now = Date.now();
     const expirationTimestamp = createdTimestamp + 24 * 60 * 60 * 1000;
+
     if (now >= expirationTimestamp) {
-      return {
-        hours: 0,
-        minutes: 0,
-        seconds: 0,
-      };
+      return { hours: 0, minutes: 0, seconds: 0 };
     }
 
     const timeRemaining = expirationTimestamp - now;
@@ -53,11 +60,8 @@ export class NavbarComponent implements OnInit {
       (timeRemaining % (60 * 60 * 1000)) / (60 * 1000)
     );
     const secondsRemaining = Math.floor((timeRemaining % (60 * 1000)) / 1000);
-    return {
-      hours: hoursRemaining,
-      minutes: minutesRemaining,
-      seconds: secondsRemaining,
-    };
+
+    return { hours: hoursRemaining, minutes: minutesRemaining, seconds: secondsRemaining };
   }
 
   updateRemainingTime(createdTime: any) {
@@ -77,19 +81,21 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user$.subscribe((profile) => {
-      // console.log("profile from subs login:", profile);
-      this.backendService.login(profile).subscribe((response) => {
-        this.userToken = response.username;
-        this.created = response.created;
-        setInterval(() => {
-          this.updateRemainingTime(response.created); // Update every second (adjust as needed)
-        }, 1000);
-        // this.cdRef.detectChanges();
-      });
+      if (profile) {
+        this.backendService.login(profile).subscribe((response) => {
+          this.userToken = response.username;
+          this.created = response.created;
+          setInterval(() => {
+            this.updateRemainingTime(response.created);
+          }, 1000);
+        });
+
+        this.profileJson = profile;
+        this.userProfilePic = profile.picture;
+        this.userNickName = profile.nickname;
+      }
       this.cdRef.detectChanges();
-      this.profileJson = profile;
-      this.userProfilePic = profile?.picture;
-      this.userNickName = profile?.nickname;
     });
   }
 }
+

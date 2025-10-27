@@ -1,11 +1,6 @@
-<ng-container *ngIf="auth.isAuthenticated$ | async; ">
-  <app-navbar></app-navbar>
-  <div class="main-content">
-    <div class="sidebar-holder">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="main-display">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</ng-container>
+<div class="home-content">
+  <h1>Bienvenue {{ profileJson?.name || 'Visiteur' }}</h1>
+  <p *ngIf="profileJson">Vous êtes connecté avec Auth0.</p>
+  <p *ngIf="!profileJson">Vous naviguez en mode visiteur.</p>
+</div>
+

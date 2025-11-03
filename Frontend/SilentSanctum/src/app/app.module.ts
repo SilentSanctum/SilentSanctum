@@ -32,13 +32,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     // AuthModule.forRoot(environment.auth),
-    AuthModule.forRoot({
-      domain: 'dev-yhlqy75o81n2y7y6.us.auth0.com',
-      clientId: 'f4mPTWqyTXtMb9FkDT8R490Dwsr9TUtA',
-      authorizationParams: {
-        redirect_uri: 'http://localhost:4200/home',
-      },
-    }),
+    //AuthModule.forRoot({
+      //domain: 'dev-yhlqy75o81n2y7y6.us.auth0.com',
+      //clientId: 'f4mPTWqyTXtMb9FkDT8R490Dwsr9TUtA',
+      //authorizationParams: {
+        //redirect_uri: 'http://localhost:4200/home',
+   //   },
+   // }),
   ],
   providers: [],
   bootstrap: [AppComponent],

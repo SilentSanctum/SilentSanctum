@@ -25,7 +25,7 @@ Install the dependencies in Frontend and Backend folders respectively.
 ```npm install```
 
 #### Set up environment variables:
-Create a .env file in Backend directory and add the following variables:
+Edit the .env file in Backend directory with the following variables:
 ```
 DB_USERNAME=<your mongodb username>
 DB_PASSWORD=<your mongodb password>
@@ -67,6 +67,7 @@ Silent Sanctum is open-source software licensed under the MIT License.
 
 ### Acknowledgements
 We would like to express our gratitude to all contributors and **Major League Hacking** community for their support, making this project possible and promoting a respectful and inclusive online community.
+
 
 
 

@@ -5,7 +5,7 @@ const db_username = process.env.DB_USERNAME;
 const db_password = process.env.DB_PASSWORD;
 const mongoose = require("mongoose");
 const cors = require('cors');
-mongoose.connect(`mongodb+srv://${db_username}:${db_password}@cluster0.upopivo.mongodb.net/silentsanctum?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb://127.0.0.1:27017/mothdb`);
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));

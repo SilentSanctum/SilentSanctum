@@ -1,8 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
-import { BackendConnectionService } from 'src/app/services/backend-connection.service';
-import { User } from '@auth0/auth0-spa-js';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,32 +6,17 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
-  profileJson: any;
-  constructor(
-    @Inject(DOCUMENT) public document: Document,
-    public auth: AuthService,
-    public backendService: BackendConnectionService,
-    private router: Router
-  ) {}
-  allPosts: any = null;
-  ngOnInit(): void {
-    // this.auth.user$.subscribe((profile) => {
-    //   console.log('profile from subs: ', profile);
-    //   this.profileJson = profile;
+export class HomeComponent {
+  // Faux profil pour test
+  profileJson = {
+    name: 'Test User',
+    email: 'test@example.com'
+  };
 
-    //   console.log('profile data: ', this.profileJson);
-    // });
-    this.router.navigateByUrl('/posts');
-    this.auth.user$.subscribe((profile) => {
-      // console.log("profile from subs login:", profile);
-      this.profileJson = profile;
-      console.log('profile json:', this.profileJson);
-      this.backendService.login(profile).subscribe((response) => {
-        console.log('response: ', response);
-        localStorage.setItem('username', response.username);
-        localStorage.setItem('LoginId', response.loginId);
-      });
-    });
+  constructor(private router: Router) {}
+
+  goToPosts() {
+    this.router.navigate(['/posts']);
   }
 }
+

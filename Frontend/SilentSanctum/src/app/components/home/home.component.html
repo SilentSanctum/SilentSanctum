@@ -1,11 +1,4 @@
-<ng-container *ngIf="auth.isAuthenticated$ | async; ">
-  <app-navbar></app-navbar>
-  <div class="main-content">
-    <div class="sidebar-holder">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="main-display">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</ng-container>
+<h1 style="color: green">HELLO HOME</h1>
+<pre>{{ profileJson | json }}</pre>
+<button (click)="goToPosts()">Voir les posts</button>
+
